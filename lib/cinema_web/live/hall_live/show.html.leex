@@ -1,0 +1,27 @@
+<h1>Show Hall</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, CinemaWeb.HallLive.FormComponent,
+    id: @hall.id,
+    title: @page_title,
+    action: @live_action,
+    hall: @hall,
+    return_to: Routes.hall_show_path(@socket, :show, @hall) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Number:</strong>
+    <%= @hall.number %>
+  </li>
+
+  <li>
+    <strong>Seats count:</strong>
+    <%= @hall.seats_count %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.hall_show_path(@socket, :edit, @hall), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.hall_index_path(@socket, :index) %></span>
