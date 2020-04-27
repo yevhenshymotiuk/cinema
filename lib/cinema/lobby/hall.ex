@@ -6,6 +6,8 @@ defmodule Cinema.Lobby.Hall do
     field :number, :integer, default: 1
     field :seats_count, :integer, default: 0
 
+    has_many :seats, Cinema.Hall.Seat
+
     timestamps()
   end
 

@@ -25,6 +25,15 @@ defmodule CinemaWeb.Router do
 
     live "/halls/:id", HallLive.Show, :show
     live "/halls/:id/show/edit", HallLive.Show, :edit
+
+    scope "/halls/:hall_id" do
+      live "/seats", SeatLive.Index, :index
+      live "/seats/new", SeatLive.Index, :new
+      live "/seats/:id/edit", SeatLive.Index, :edit
+
+      live "/seats/:id", SeatLive.Show, :show
+      live "/seats/:id/show/edit", SeatLive.Show, :edit
+    end
   end
 
   # Other scopes may use custom stacks.
