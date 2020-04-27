@@ -1,12 +1,10 @@
-defmodule Cinema.Lobby do
+defmodule Cinema.Halls do
   @moduledoc """
   The Lobby context.
   """
 
   import Ecto.Query, warn: false
-  alias Cinema.Repo
-
-  alias Cinema.Lobby.Hall
+  alias Cinema.{Repo, Hall}
 
   @doc """
   Returns the list of halls.

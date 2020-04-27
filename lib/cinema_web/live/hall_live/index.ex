@@ -1,8 +1,7 @@
 defmodule CinemaWeb.HallLive.Index do
   use CinemaWeb, :live_view
 
-  alias Cinema.Lobby
-  alias Cinema.Lobby.Hall
+  alias Cinema.{Hall, Halls}
 
   @impl true
   def mount(_params, _session, socket) do
@@ -17,7 +16,7 @@ defmodule CinemaWeb.HallLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Hall")
-    |> assign(:hall, Lobby.get_hall!(id))
+    |> assign(:hall, Halls.get_hall!(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -34,13 +33,13 @@ defmodule CinemaWeb.HallLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    hall = Lobby.get_hall!(id)
-    {:ok, _} = Lobby.delete_hall(hall)
+    hall = Halls.get_hall!(id)
+    {:ok, _} = Halls.delete_hall(hall)
 
     {:noreply, assign(socket, :halls, fetch_halls())}
   end
 
   defp fetch_halls do
-    Lobby.list_halls()
+    Halls.list_halls()
   end
 end

@@ -26,19 +26,26 @@
         <td>
             <span>
                 <%= live_redirect "Show",
-                  to: Routes.seat_show_path(
-                    @socket,
-                    :show,
-                    @hall.id,
-                    seat
-                ) %>
+                  to: Routes.seat_show_path(@socket, :show, @hall.id, seat) %>
             </span>
-          <span><%= live_patch "Edit", to: Routes.seat_index_path(@socket, :edit, @hall.id, seat) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: seat.id, data: [confirm: "Are you sure?"] %></span>
+            <span>
+                <%= live_patch "Edit",
+                  to: Routes.seat_index_path(@socket, :edit, @hall.id, seat) %>
+            </span>
+            <span>
+                <%= link "Delete",
+                  to: "#",
+                  phx_click: "delete",
+                  phx_value_id: seat.id,
+                  data: [confirm: "Are you sure?"] %>
+            </span>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<span><%= live_patch "New Seat", to: Routes.seat_index_path(@socket, :new, @hall.id) %></span>
+<span>
+    <%= live_patch "New Seat",
+      to: Routes.seat_index_path(@socket, :new, @hall.id) %>
+</span>

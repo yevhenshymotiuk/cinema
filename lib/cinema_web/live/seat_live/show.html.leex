@@ -6,7 +6,7 @@
     title: @page_title,
     action: @live_action,
     seat: @seat,
-    return_to: Routes.seat_show_path(@socket, :show, @seat) %>
+    return_to: Routes.seat_show_path(@socket, :show, @hall_id, @seat) %>
 <% end %>
 
 <ul>
@@ -18,5 +18,9 @@
 
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.seat_show_path(@socket, :edit, @seat, @hall_id), class: "button" %></span>
+<span>
+    <%= live_patch "Edit",
+      to: Routes.seat_show_path(@socket, :edit, @hall_id, @seat),
+      class: "button" %>
+</span>
 <span><%= live_redirect "Back", to: Routes.seat_index_path(@socket, :index, @hall_id) %></span>
