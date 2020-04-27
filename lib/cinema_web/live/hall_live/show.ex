@@ -1,7 +1,7 @@
 defmodule CinemaWeb.HallLive.Show do
   use CinemaWeb, :live_view
 
-  alias Cinema.Lobby
+  alias Cinema.Halls
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,7 +13,7 @@ defmodule CinemaWeb.HallLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:hall, Lobby.get_hall!(id))}
+     |> assign(:hall, Halls.get_hall!(id))}
   end
 
   defp page_title(:show), do: "Show Hall"

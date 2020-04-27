@@ -1,4 +1,4 @@
-defmodule Cinema.Hall do
+defmodule Cinema.Seats do
   @moduledoc """
   The Hall context.
   """

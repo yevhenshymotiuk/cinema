@@ -1,11 +1,11 @@
 defmodule CinemaWeb.SeatLive.FormComponent do
   use CinemaWeb, :live_component
 
-  alias Cinema.Hall
+  alias Cinema.Seats
 
   @impl true
   def update(%{seat: seat} = assigns, socket) do
-    changeset = Hall.change_seat(seat)
+    changeset = Seats.change_seat(seat)
 
     {
       :ok,
@@ -19,18 +19,18 @@ defmodule CinemaWeb.SeatLive.FormComponent do
   def handle_event("validate", %{"seat" => seat_params}, socket) do
     changeset =
       socket.assigns.seat
-      |> Hall.change_seat(seat_params)
+      |> Seats.change_seat(seat_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
   def handle_event("save", %{"seat" => seat_params}, socket) do
-    save_seat(socket, socket.assigns.action, seat_params, socket.assigns.hall)
+    save_seat(socket, socket.assigns.action, seat_params)
   end
 
-  defp save_seat(socket, :edit, seat_params, hall) do
-    case Hall.update_seat(socket.assigns.seat, seat_params) do
+  defp save_seat(socket, :edit, seat_params) do
+    case Seats.update_seat(socket.assigns.seat, seat_params) do
       {:ok, _seat} ->
         {:noreply,
          socket
@@ -42,8 +42,8 @@ defmodule CinemaWeb.SeatLive.FormComponent do
     end
   end
 
-  defp save_seat(socket, :new, seat_params, hall) do
-    case Hall.create_seat(seat_params, hall) do
+  defp save_seat(socket, :new, seat_params) do
+    case Seats.create_seat(seat_params, socket.assigns.hall) do
       {:ok, _seat} ->
         {:noreply,
          socket

@@ -1,4 +1,4 @@
-defmodule Cinema.Lobby.Hall do
+defmodule Cinema.Hall do
   use Ecto.Schema
   import Ecto.Changeset
 

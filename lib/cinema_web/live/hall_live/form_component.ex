@@ -1,23 +1,25 @@
 defmodule CinemaWeb.HallLive.FormComponent do
   use CinemaWeb, :live_component
 
-  alias Cinema.Lobby
+  alias Cinema.Halls
 
   @impl true
   def update(%{hall: hall} = assigns, socket) do
-    changeset = Lobby.change_hall(hall)
+    changeset = Halls.change_hall(hall)
 
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)}
+    {
+      :ok,
+      socket
+      |> assign(assigns)
+      |> assign(:changeset, changeset)
+    }
   end
 
   @impl true
   def handle_event("validate", %{"hall" => hall_params}, socket) do
     changeset =
       socket.assigns.hall
-      |> Lobby.change_hall(hall_params)
+      |> Halls.change_hall(hall_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
@@ -28,7 +30,7 @@ defmodule CinemaWeb.HallLive.FormComponent do
   end
 
   defp save_hall(socket, :edit, hall_params) do
-    case Lobby.update_hall(socket.assigns.hall, hall_params) do
+    case Halls.update_hall(socket.assigns.hall, hall_params) do
       {:ok, _hall} ->
         {:noreply,
          socket
@@ -41,7 +43,7 @@ defmodule CinemaWeb.HallLive.FormComponent do
   end
 
   defp save_hall(socket, :new, hall_params) do
-    case Lobby.create_hall(hall_params) do
+    case Halls.create_hall(hall_params) do
       {:ok, _hall} ->
         {:noreply,
          socket

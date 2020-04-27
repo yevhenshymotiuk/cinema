@@ -1,7 +1,7 @@
 defmodule CinemaWeb.SeatLive.Show do
   use CinemaWeb, :live_view
 
-  alias Cinema.Hall
+  alias Cinema.Seats
 
   @impl true
   def mount(_params, _session, socket) do
@@ -14,7 +14,7 @@ defmodule CinemaWeb.SeatLive.Show do
       :noreply,
       socket
       |> assign(:page_title, page_title(socket.assigns.live_action))
-      |> assign(:seat, Hall.get_seat!(id))
+      |> assign(:seat, Seats.get_seat!(id))
       |> assign(:hall_id, hall_id)
     }
   end
