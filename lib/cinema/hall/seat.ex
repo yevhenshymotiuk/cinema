@@ -5,7 +5,7 @@ defmodule Cinema.Hall.Seat do
   schema "seats" do
     field :number, :integer, default: 1
 
-    belongs_to :hall, Cinema.Lobby.Hall
+    belongs_to :hall, Cinema.Hall
 
     timestamps()
   end
