@@ -18,7 +18,12 @@ defmodule Cinema.Seats do
 
   """
   def list_seats(hall_id) do
-    Repo.all(from s in Seat, where: s.hall_id == ^String.to_integer(hall_id), select: s)
+    Repo.all(
+      from s in Seat,
+      where: s.hall_id == ^hall_id,
+      order_by: [asc: s.number],
+      select: s
+    )
   end
 
   @doc """
