@@ -37,11 +37,11 @@ defmodule CinemaWeb.SeatLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"hall_number" => hall_number, "id" => id}, socket) do
+  def handle_event("delete", %{"id" => id}, socket) do
     seat = Seats.get_seat!(id)
     {:ok, _} = Seats.delete_seat(seat)
 
-    {:noreply, assign(socket, :seats, fetch_seats(hall_number))}
+    {:noreply, assign(socket, :seats, fetch_seats(socket.assigns.hall.id))}
   end
 
   defp fetch_seats(hall_id) do
