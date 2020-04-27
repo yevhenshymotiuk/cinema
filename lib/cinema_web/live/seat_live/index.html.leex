@@ -1,0 +1,44 @@
+<h1>Listing Seats</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, CinemaWeb.SeatLive.FormComponent,
+    id: @seat.id || :new,
+    title: @page_title,
+    action: @live_action,
+    seat: @seat,
+    hall: @hall,
+    return_to: Routes.seat_index_path(@socket, :index, @hall.id) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="seats">
+    <%= for seat <- @seats do %>
+      <tr id="seat-<%= seat.id %>">
+        <td><%= seat.number %></td>
+
+        <td>
+            <span>
+                <%= live_redirect "Show",
+                  to: Routes.seat_show_path(
+                    @socket,
+                    :show,
+                    @hall.id,
+                    seat
+                ) %>
+            </span>
+          <span><%= live_patch "Edit", to: Routes.seat_index_path(@socket, :edit, @hall.id, seat) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: seat.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Seat", to: Routes.seat_index_path(@socket, :new, @hall.id) %></span>
