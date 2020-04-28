@@ -1,11 +1,11 @@
-defmodule Cinema.Hall.Seat do
+defmodule Cinema.Seats.Seat do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "seats" do
     field :number, :integer, default: 1
 
-    belongs_to :hall, Cinema.Hall
+    belongs_to :hall, Cinema.Halls.Hall
     has_one :ticket, Cinema.Tickets.Ticket
 
     timestamps()

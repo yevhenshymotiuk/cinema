@@ -4,7 +4,7 @@ defmodule Cinema.Halls do
   """
 
   import Ecto.Query, warn: false
-  alias Cinema.{Repo, Hall}
+  alias Cinema.{Repo, Halls.Hall}
 
   @doc """
   Returns the list of halls.

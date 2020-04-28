@@ -1,4 +1,4 @@
-defmodule Cinema.Hall do
+defmodule Cinema.Halls.Hall do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,7 +6,7 @@ defmodule Cinema.Hall do
     field :number, :integer, default: 1
     field :seats_count, :integer, default: 0
 
-    has_many :seats, Cinema.Hall.Seat
+    has_many :seats, Cinema.Seats.Seat
 
     timestamps()
   end
