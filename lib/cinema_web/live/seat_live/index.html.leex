@@ -22,7 +22,6 @@
     <%= for seat <- @seats do %>
       <tr id="seat-<%= seat.id %>">
         <td><%= seat.number %></td>
-
         <td>
             <span>
                 <%= live_redirect "Show",
@@ -44,6 +43,10 @@
     <% end %>
   </tbody>
 </table>
+
+
+<%= live_component @socket, CinemaWeb.SeatLive.SeatsComponent, seats: @seats, hall: @hall %>
+<br />
 
 <span>
     <%= live_patch "New Seat",

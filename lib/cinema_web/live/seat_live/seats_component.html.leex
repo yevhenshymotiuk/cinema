@@ -1,0 +1,13 @@
+<div style="display: flex; flex-direction: column;">
+  <%= for seats2 <- @seats do %>
+    <div style="display: flex; justify-content: space-around;">
+      <%= for seat <- seats2 do %>
+        <div style="width: 2em;">
+          <%= live_redirect to: Routes.seat_show_path(@socket, :show, @hall.id, seat) do %>
+            <%= seat.number %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
