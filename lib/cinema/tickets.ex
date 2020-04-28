@@ -4,7 +4,8 @@ defmodule Cinema.Tickets do
   """
 
   import Ecto.Query, warn: false
-  alias Cinema.{Repo, Tickets.Ticket}
+  alias Cinema.Repo
+  alias Cinema.Tickets.Ticket
 
   @doc """
   Returns the list of tickets.
@@ -47,12 +48,9 @@ defmodule Cinema.Tickets do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_ticket(seat, attrs \\ %{}) do
-    # %Ticket{}
-    # |> Ticket.changeset(attrs)
-    # |> Repo.insert()
-    seat
-    |> Ecto.build_assoc(:ticket, attrs)
+  def create_ticket(attrs \\ %{}) do
+    %Ticket{}
+    |> Ticket.changeset(attrs)
     |> Repo.insert()
   end
 

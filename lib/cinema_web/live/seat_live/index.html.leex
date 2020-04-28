@@ -23,21 +23,21 @@
       <tr id="seat-<%= seat.id %>">
         <td><%= seat.number %></td>
         <td>
-            <span>
-                <%= live_redirect "Show",
-                  to: Routes.seat_show_path(@socket, :show, @hall.id, seat) %>
-            </span>
-            <span>
-                <%= live_patch "Edit",
-                  to: Routes.seat_index_path(@socket, :edit, @hall.id, seat) %>
-            </span>
-            <span>
-                <%= link "Delete",
-                  to: "#",
-                  phx_click: "delete",
-                  phx_value_id: seat.id,
-                  data: [confirm: "Are you sure?"] %>
-            </span>
+          <span>
+            <%= live_redirect "Show",
+              to: Routes.seat_show_path(@socket, :show, @hall.id, seat) %>
+          </span>
+          <span>
+            <%= live_patch "Edit",
+              to: Routes.seat_index_path(@socket, :edit, @hall.id, seat) %>
+          </span>
+          <span>
+            <%= link "Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: seat.id,
+              data: [confirm: "Are you sure?"] %>
+          </span>
         </td>
       </tr>
     <% end %>
@@ -45,7 +45,11 @@
 </table>
 
 
-<%= live_component @socket, CinemaWeb.SeatLive.SeatsComponent, seats: @seats, hall: @hall %>
+<%= live_component @socket,
+  CinemaWeb.SeatLive.SeatsComponent,
+  id: "seats",
+  seats: @seats,
+  hall: @hall %>
 <br />
 
 <span>
