@@ -6,6 +6,7 @@ defmodule Cinema.Hall.Seat do
     field :number, :integer, default: 1
 
     belongs_to :hall, Cinema.Hall
+    has_one :ticket, Cinema.Tickets.Ticket
 
     timestamps()
   end

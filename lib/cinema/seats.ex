@@ -5,8 +5,8 @@ defmodule Cinema.Seats do
 
   import Ecto.Query, warn: false
   alias Cinema.Repo
-
   alias Cinema.Hall.Seat
+  alias Cinema.Tickets.Ticket
 
   @doc """
   Returns the list of seats.
