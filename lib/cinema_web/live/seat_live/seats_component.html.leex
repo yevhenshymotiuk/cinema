@@ -6,6 +6,9 @@
           <%= live_redirect to: Routes.seat_show_path(@socket, :show, @hall.id, seat) do %>
             <%= seat.number %>
           <% end %>
+          <%= if seat.ticket do %>
+              !
+          <% end %>
         </div>
       <% end %>
     </div>
