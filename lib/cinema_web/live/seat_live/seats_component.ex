@@ -1,5 +1,6 @@
 defmodule CinemaWeb.SeatLive.SeatsComponent do
   use CinemaWeb, :live_component
+
   alias Cinema.Repo
 
   def update(assigns, socket) do
@@ -7,8 +8,12 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
       assigns.seats
       |> Repo.preload([:ticket])
       |> Enum.chunk_every(5)
-    hall = assigns.hall;
 
-    {:ok, socket |> assign(:seats, seats) |> assign(:hall, hall)}
+    {
+      :ok,
+      socket
+      |> assign(assigns)
+      |> assign(seats: seats)
+    }
   end
 end

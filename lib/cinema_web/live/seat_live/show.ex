@@ -1,8 +1,7 @@
 defmodule CinemaWeb.SeatLive.Show do
   use CinemaWeb, :live_view
 
-  alias Cinema.Seats
-  alias Cinema.Tickets
+  alias Cinema.{Seats, Tickets}
 
   @impl true
   def mount(_params, _session, socket) do

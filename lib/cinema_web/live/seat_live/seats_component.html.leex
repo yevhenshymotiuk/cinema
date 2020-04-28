@@ -2,15 +2,9 @@
   <%= for seats2 <- @seats do %>
     <div style="display: flex; justify-content: space-around;">
       <%= for seat <- seats2 do %>
-        <div style="width: 2em;">
-          <%= live_redirect to: Routes.seat_show_path(@socket, :show, @hall.id, seat) do %>
-            <%= seat.number %>
-          <% end %>
-          <%= if seat.ticket do %>
-              !
-          <% end %>
-        </div>
+          <%= live_component @socket, CinemaWeb.SeatLive.SeatComponent, seat: seat, hall: @hall %>
       <% end %>
     </div>
+    <br />
   <% end %>
 </div>

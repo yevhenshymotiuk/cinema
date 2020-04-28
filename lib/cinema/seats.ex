@@ -4,9 +4,7 @@ defmodule Cinema.Seats do
   """
 
   import Ecto.Query, warn: false
-  alias Cinema.Repo
-  alias Cinema.Hall.Seat
-  alias Cinema.Tickets.Ticket
+  alias Cinema.{Repo, Seats.Seat}
 
   @doc """
   Returns the list of seats.

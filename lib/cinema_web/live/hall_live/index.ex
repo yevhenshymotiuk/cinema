@@ -1,7 +1,8 @@
 defmodule CinemaWeb.HallLive.Index do
   use CinemaWeb, :live_view
 
-  alias Cinema.{Hall, Halls}
+  alias Cinema.Halls
+  alias Cinema.Halls.Hall
 
   @impl true
   def mount(_params, _session, socket) do
