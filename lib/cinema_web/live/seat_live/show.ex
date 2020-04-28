@@ -1,7 +1,7 @@
 defmodule CinemaWeb.SeatLive.Show do
   use CinemaWeb, :live_view
 
-  alias Cinema.{Seats, Tickets}
+  alias Cinema.Seats
 
   @impl true
   def mount(_params, _session, socket) do
@@ -21,7 +21,7 @@ defmodule CinemaWeb.SeatLive.Show do
 
   @impl true
   def handle_event("buy-ticket", _, socket) do
-    Tickets.create_ticket(socket.assigns.seat)
+    Seats.create_ticket(socket.assigns.seat)
 
     {
       :noreply,

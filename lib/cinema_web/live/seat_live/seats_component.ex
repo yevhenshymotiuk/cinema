@@ -6,6 +6,7 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
   def update(assigns, socket) do
     seats =
       assigns.seats
+      |> Enum.sort_by(& &1.number)
       |> Repo.preload([:ticket])
       |> Enum.chunk_every(5)
 

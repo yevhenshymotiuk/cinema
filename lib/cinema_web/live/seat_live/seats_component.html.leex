@@ -1,8 +1,12 @@
 <div style="display: flex; flex-direction: column;">
-  <%= for seats2 <- @seats do %>
+  <%= for seats_row <- @seats do %>
     <div style="display: flex; justify-content: space-around;">
-      <%= for seat <- seats2 do %>
-          <%= live_component @socket, CinemaWeb.SeatLive.SeatComponent, seat: seat, hall: @hall %>
+      <%= for seat <- seats_row do %>
+        <%= live_component @socket,
+          CinemaWeb.SeatLive.SeatComponent,
+          id: seat.number,
+          seat: seat,
+          hall: @hall %>
       <% end %>
     </div>
     <br />

@@ -4,7 +4,8 @@ defmodule Cinema.Seats do
   """
 
   import Ecto.Query, warn: false
-  alias Cinema.{Repo, Seats.Seat}
+  alias Cinema.Repo
+  alias Cinema.Seats.Seat
 
   @doc """
   Returns the list of seats.
@@ -57,6 +58,7 @@ defmodule Cinema.Seats do
     |> Seat.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:hall, hall)
     |> Repo.insert()
+    |> broadcast(:seat_created)
   end
 
   @doc """
@@ -75,6 +77,7 @@ defmodule Cinema.Seats do
     seat
     |> Seat.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:seat_updated)
   end
 
   @doc """
@@ -104,5 +107,23 @@ defmodule Cinema.Seats do
   """
   def change_seat(%Seat{} = seat, attrs \\ %{}) do
     Seat.changeset(seat, attrs)
+  end
+
+  def create_ticket(%Seat{} = seat, attrs \\ %{}) do
+    ticket = Ecto.build_assoc(seat, :ticket, attrs)
+
+    Repo.insert(ticket)
+
+    broadcast({:ok, get_seat!(seat.id)}, :seat_updated)
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Cinema.PubSub, "seats")
+  end
+
+  defp broadcast({:error, _reason} = error, _event), do: error
+  defp broadcast({:ok, seat}, event) do
+    Phoenix.PubSub.broadcast(Cinema.PubSub, "seats", {event, seat})
+    {:ok, seat}
   end
 end

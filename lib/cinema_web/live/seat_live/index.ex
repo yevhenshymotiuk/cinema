@@ -6,6 +6,8 @@ defmodule CinemaWeb.SeatLive.Index do
 
   @impl true
   def mount(%{"hall_id" => hall_id}, _session, socket) do
+    if connected?(socket), do: Seats.subscribe()
+
     {
       :ok,
       socket
@@ -43,6 +45,27 @@ defmodule CinemaWeb.SeatLive.Index do
     {:ok, _} = Seats.delete_seat(seat)
 
     {:noreply, assign(socket, :seats, fetch_seats(socket.assigns.hall.id))}
+  end
+
+  @impl true
+  def handle_info({:seat_created, seat}, socket) do
+    {:noreply, update(socket, :seats, fn seats -> [seat | seats] end)}
+  end
+
+  def handle_info({:seat_updated, seat}, socket) do
+    {
+      :noreply,
+      update(
+        socket,
+        :seats,
+        fn seats ->
+          Enum.map(
+            seats,
+            fn s -> if s.id == seat.id, do: seat, else: s end
+          )
+        end
+      )
+    }
   end
 
   defp fetch_seats(hall_id) do
