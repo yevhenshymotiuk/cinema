@@ -23,4 +23,9 @@
       to: Routes.seat_show_path(@socket, :edit, @hall_id, @seat),
       class: "button" %>
 </span>
+<span>
+    <button phx-click="buy-ticket" phx-value="123">
+        Buy ticket
+    </button>
+</span>
 <span><%= live_redirect "Back", to: Routes.seat_index_path(@socket, :index, @hall_id) %></span>
