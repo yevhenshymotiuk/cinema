@@ -7,7 +7,5 @@ defmodule Cinema.Repo.Migrations.CreateSeats do
 
       timestamps()
     end
-
-    create unique_index(:seats, [:number])
   end
 end
