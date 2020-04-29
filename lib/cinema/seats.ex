@@ -61,6 +61,16 @@ defmodule Cinema.Seats do
     |> broadcast(:seat_created)
   end
 
+  def create_seat!(attrs \\ %{}, hall) do
+    seat =
+      %Seat{}
+      |> Seat.changeset(attrs)
+      |> Ecto.Changeset.put_assoc(:hall, hall)
+      |> Repo.insert!()
+
+    broadcast({:ok, seat}, :seat_created)
+  end
+
   @doc """
   Updates a seat.
 
