@@ -1,5 +1,5 @@
 <%= live_redirect to: Routes.seat_show_path(@socket, :show, @hall.id, @seat) do %>
-  <div style="width: 2em;" class="<%= @state %> seat">
+  <div style="width: 2em;" class="seat seat--state-<%= @state %>">
     <%= @seat.number %>
   </div>
 <% end %>
