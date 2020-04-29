@@ -7,7 +7,6 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
     seats =
       assigns.seats
       |> Enum.sort_by(& &1.number)
-      |> Repo.preload([:ticket])
       |> Enum.chunk_every(5)
 
     {

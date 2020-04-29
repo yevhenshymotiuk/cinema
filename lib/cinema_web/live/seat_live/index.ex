@@ -58,12 +58,7 @@ defmodule CinemaWeb.SeatLive.Index do
       update(
         socket,
         :seats,
-        fn seats ->
-          Enum.map(
-            seats,
-            fn s -> if s.id == seat.id, do: seat, else: s end
-          )
-        end
+        & Enum.map(&1, fn s -> if s.id == seat.id, do: seat, else: s end)
       )
     }
   end

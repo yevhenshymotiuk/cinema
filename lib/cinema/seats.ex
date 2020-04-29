@@ -21,6 +21,7 @@ defmodule Cinema.Seats do
       from s in Seat,
       where: s.hall_id == ^hall_id,
       order_by: [asc: s.number],
+      preload: [:ticket],
       select: s
     )
   end
