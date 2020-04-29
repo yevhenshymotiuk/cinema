@@ -1,11 +1,13 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Cinema.Repo.insert!(%Cinema.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+halls =
+    [50, 40, 50, 30]
+    |> Enum.with_index()
+    |> Enum.map(
+        fn {x, i} -> Cinema.Halls.create_hall!(%{number: i + 1, seats_count: x}) end
+    )
+
+halls
+|> Enum.each(
+  fn h ->
+    Enum.each(1..h.seats_count, & Cinema.Seats.create_seat!(%{number: &1}, h))
+  end
+)

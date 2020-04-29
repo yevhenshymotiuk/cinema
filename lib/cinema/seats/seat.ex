@@ -16,7 +16,7 @@ defmodule Cinema.Seats.Seat do
     seat
     |> cast(attrs, [:number])
     |> validate_required([:number])
-    |> unique_constraint(:number)
+    |> unique_constraint([:number, :hall])
     |> validate_number(:number, greater_than: 0)
   end
 end

@@ -53,6 +53,12 @@ defmodule Cinema.Halls do
     |> Repo.insert()
   end
 
+  def create_hall!(attrs \\ %{}) do
+    %Hall{}
+    |> Hall.changeset(attrs)
+    |> Repo.insert!()
+  end
+
   @doc """
   Updates a hall.
 
