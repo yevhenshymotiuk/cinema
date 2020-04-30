@@ -2,18 +2,13 @@ defmodule CinemaWeb.SeatLive.SeatComponent do
   use CinemaWeb, :live_component
 
   def update(assigns, socket) do
-    state =
-      if assigns.seat.ticket do
-        "sold"
-      else
-        "free"
-      end
+    free = is_nil(assigns.seat.ticket)
 
     {
       :ok,
       socket
       |> assign(assigns)
-      |> assign(state: state)
+      |> assign(free: free)
     }
   end
 end
