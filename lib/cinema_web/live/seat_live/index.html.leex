@@ -1,3 +1,6 @@
+<h1 class="content-center">Hall <%= @hall.number %></h1>
+<br />
+
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, CinemaWeb.SeatLive.FormComponent,
     id: @seat.id || :new,
