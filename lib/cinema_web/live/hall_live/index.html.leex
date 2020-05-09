@@ -1,4 +1,4 @@
-<h1>Listing Halls</h1>
+<h1>Halls</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, CinemaWeb.HallLive.FormComponent,
@@ -14,26 +14,15 @@
     <tr>
       <th>Number</th>
       <th>Seats count</th>
-
       <th></th>
-    </tr>
   </thead>
   <tbody id="halls">
     <%= for hall <- @halls do %>
-      <tr id="hall-<%= hall.id %>">
-        <td><%= hall.number %></td>
-        <td><%= hall.seats_count %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.hall_show_path(@socket, :show, hall) %></span>
-          <span><%= live_patch "Edit", to: Routes.hall_index_path(@socket, :edit, hall) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: hall.id, data: [confirm: "Are you sure?"] %></span>
-          <span>
-              <%= live_redirect "Seats",
-                to: Routes.seat_index_path(@socket, :index, hall.id) %>
-          </span>
-        </td>
-      </tr>
+        <tr id="hall-<%= hall.id %>" class="hall">
+          <td><%= hall.number %></td>
+          <td><%= hall.seats_count %></td>
+          <td><%= live_redirect "Show", to: Routes.seat_index_path(@socket, :index, hall.id)%></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
