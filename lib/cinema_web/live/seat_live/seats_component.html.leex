@@ -16,11 +16,15 @@
   </div>
 
   <%= if @selected_seats != [] do %>
-    <div class="selected-seats-info">
-        Selected:
-        <%= for seat <- @selected_seats do %>
-            <span><%= seat.number %></span>
-        <% end %>
+    <div class="d-flex">
+      <div class="selected-seats-info">
+          Selected:
+          <%= for seat <- @selected_seats do %>
+              <span><%= seat.number %></span>
+          <% end %>
+      </div>
+
+      <button phx-click="buy-tickets">Buy</button>
     </div>
   <% end %>
 </div>

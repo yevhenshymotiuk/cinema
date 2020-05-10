@@ -59,11 +59,22 @@ defmodule CinemaWeb.SeatLive.Index do
         [seat | selected_seats]
       end
 
-    IO.inspect(selected_seats)
-
     {
       :noreply,
       assign(socket, selected_seats: selected_seats)
+    }
+  end
+
+  def handle_event("buy-tickets", _, socket) do
+    selected_seats = socket.assigns.selected_seats
+
+    Enum.each(selected_seats, & Seats.create_ticket(&1))
+
+    {
+      :noreply,
+      socket
+      |> assign(selected_seats: [])
+      |> put_flash(:info, "Tickets were successfully bought")
     }
   end
 
