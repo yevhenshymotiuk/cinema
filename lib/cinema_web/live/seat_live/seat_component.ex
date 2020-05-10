@@ -3,12 +3,14 @@ defmodule CinemaWeb.SeatLive.SeatComponent do
 
   def update(assigns, socket) do
     free = is_nil(assigns.seat.ticket)
+    selected = assigns.seat.id in assigns.selected_seats
 
     {
       :ok,
       socket
       |> assign(assigns)
       |> assign(free: free)
+      |> assign(selected: selected)
     }
   end
 end

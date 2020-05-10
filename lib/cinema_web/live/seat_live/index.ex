@@ -13,6 +13,7 @@ defmodule CinemaWeb.SeatLive.Index do
       socket
       |> assign(seats: fetch_seats(hall_id))
       |> assign(hall: Halls.get_hall!(hall_id))
+      |> assign(selected_seats: [])
     }
   end
 
@@ -45,6 +46,23 @@ defmodule CinemaWeb.SeatLive.Index do
     {:ok, _} = Seats.delete_seat(seat)
 
     {:noreply, assign(socket, :seats, fetch_seats(socket.assigns.hall.id))}
+  end
+
+  def handle_event("select", %{"seat_id" => seat_id}, socket) do
+    selected_seats = socket.assigns.selected_seats
+    seat_id = String.to_integer(seat_id)
+
+    selected_seats =
+      if seat_id in selected_seats do
+        List.delete(selected_seats, seat_id)
+      else
+        [seat_id | selected_seats]
+      end
+
+    {
+      :noreply,
+      assign(socket, selected_seats: selected_seats)
+    }
   end
 
   @impl true
