@@ -18,10 +18,10 @@
   <%= if @selected_seats != [] do %>
     <div class="d-flex">
       <div class="selected-seats-info">
-          Selected:
-          <%= for seat <- @selected_seats do %>
-              <span><%= seat.number %></span>
-          <% end %>
+        Selected:
+        <%= for {seat, i} <- Enum.with_index(@selected_seats) do %>
+          <span><%= seat.number %><%= if i != length(@selected_seats) - 1 do %>,<% end %></span>
+        <% end %>
       </div>
 
       <button phx-click="buy-tickets">Buy</button>
