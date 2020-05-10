@@ -18,8 +18,8 @@
   <%= if @selected_seats != [] do %>
     <div class="selected-seats-info">
         Selected:
-        <%= for n <- @selected_seats do %>
-            <span><%= n %></span>
+        <%= for seat <- @selected_seats do %>
+            <span><%= seat.number %></span>
         <% end %>
     </div>
   <% end %>
