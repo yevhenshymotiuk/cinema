@@ -1,14 +1,26 @@
-<div style="display: flex; flex-direction: column;">
-  <%= for seats_row <- @seats do %>
-    <div style="display: flex; justify-content: space-around;">
-      <%= for seat <- seats_row do %>
-        <%= live_component @socket,
-          CinemaWeb.SeatLive.SeatComponent,
-          id: seat.number,
-          seat: seat,
-          hall: @hall %>
-      <% end %>
+<div class="seats">
+  <div style="display: flex; flex-direction: column;">
+    <%= for seats_row <- @seats do %>
+      <div style="display: flex; justify-content: space-around;">
+        <%= for seat <- seats_row do %>
+          <%= live_component @socket,
+            CinemaWeb.SeatLive.SeatComponent,
+            id: seat.number,
+            seat: seat,
+            selected_seats: @selected_seats,
+            hall: @hall %>
+        <% end %>
+      </div>
+      <br />
+    <% end %>
+  </div>
+
+  <%= if @selected_seats != [] do %>
+    <div class="selected-seats-info">
+        Selected:
+        <%= for n <- @selected_seats do %>
+            <span><%= n %></span>
+        <% end %>
     </div>
-    <br />
   <% end %>
 </div>

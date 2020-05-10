@@ -3,13 +3,16 @@
   border: 1px solid grey
   border-radius: 0.3em
 
-.seat--state-free
+  &.seat--state-free
+    &:hover
+      cursor: pointer
+      border-color: lightgreen
 
-  &:hover
+  &.seat--state-sold
+    background-color: lightgrey
+
+  &.seat--selected
     background-color: lightgreen
-
-.seat--state-sold
-  background-color: lightgrey
 
 .content-center
   display: flex
