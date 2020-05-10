@@ -50,14 +50,16 @@ defmodule CinemaWeb.SeatLive.Index do
 
   def handle_event("select", %{"seat_id" => seat_id}, socket) do
     selected_seats = socket.assigns.selected_seats
-    seat_id = String.to_integer(seat_id)
+    seat = Cinema.Repo.preload(Seats.get_seat!(seat_id), [:ticket])
 
     selected_seats =
-      if seat_id in selected_seats do
-        List.delete(selected_seats, seat_id)
+      if seat in selected_seats do
+        List.delete(selected_seats, seat)
       else
-        [seat_id | selected_seats]
+        [seat | selected_seats]
       end
+
+    IO.inspect(selected_seats)
 
     {
       :noreply,

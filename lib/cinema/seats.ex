@@ -42,6 +42,12 @@ defmodule Cinema.Seats do
   """
   def get_seat!(id), do: Repo.get!(Seat, id)
 
+  def get_seat_with_ticket!(id) do
+    Seat
+    |> Repo.get!(id)
+    |> Repo.preload([:ticket])
+  end
+
   @doc """
   Creates a seat.
 
