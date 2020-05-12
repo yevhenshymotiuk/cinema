@@ -38,15 +38,25 @@ defmodule CinemaWeb.SeatLive.Selected do
 
   @impl true
   def handle_event("buy-tickets", _, socket) do
-    selected_seats = Enum.map(socket.assigns.selected_seats_data, & &1.seat)
+    selected_seats_data = socket.assigns.selected_seats_data
+      
+    selected_seats = Enum.map(selected_seats_data, & &1.seat)
 
-    Enum.each(selected_seats, & Seats.create_ticket(&1))
+    ticket_ids = Enum.map(selected_seats, & Seats.create_ticket!(&1).id)
 
     {
       :noreply,
       socket
-      |> assign(selected_seats: [])
-      |> push_redirect(to: Routes.seat_index_path(socket, :index, socket.assigns.hall.id))
+      |> push_redirect(
+        to: Routes.seat_tickets_path(
+          socket,
+          :tickets,
+          socket.assigns.hall.id,
+          selected_seats_data
+          |> Enum.map(& "#{&1.seat.id}|#{&1.row}")
+          |> Enum.join(",")
+        )
+      )
       |> put_flash(:info, "Tickets were successfully bought")
     }
   end
