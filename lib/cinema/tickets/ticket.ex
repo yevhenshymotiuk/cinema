@@ -3,7 +3,9 @@ defmodule Cinema.Tickets.Ticket do
   import Ecto.Changeset
 
   schema "tickets" do
-    belongs_to :seat, Cinema.Hall.Seat
+    field :uuid, :binary_id
+
+    belongs_to :seat, Cinema.Seats.Seat
 
     timestamps()
   end
