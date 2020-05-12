@@ -16,15 +16,23 @@
   </div>
 
   <%= if @selected_seats != [] do %>
-    <div class="d-flex">
-      <div class="selected-seats-info">
+    <div class="selected-seats">
+      <div class="selected-seat-numbers">
         Selected:
         <%= for {seat, i} <- Enum.with_index(@selected_seats) do %>
           <span><%= seat.number %><%= if i != length(@selected_seats) - 1 do %>,<% end %></span>
         <% end %>
       </div>
 
-      <button phx-click="buy-tickets">Buy</button>
+      <%= live_redirect "Confirm",
+        to: Routes.seat_selected_path(
+          @socket,
+          :selected,
+          @hall_id,
+          @selected_seats
+          |> Enum.map(& "#{&1.id}|#{@row.(&1.number)}")
+          |> Enum.join(",")
+        ) %>
     </div>
   <% end %>
 </div>
