@@ -10,14 +10,14 @@ defmodule CinemaWeb.SeatLive.Selected do
 
   @impl true
   def handle_params(
-    %{"hall_id" => hall_id, "selected_seat_ids" => selected_seat_ids},
+    %{"hall_id" => hall_id, "selected_seats_data" => selected_seats_data},
     _,
     socket
   ) do
     hall = Halls.get_hall!(hall_id)
-    IO.inspect(selected_seat_ids)
+
     selected_seats_data =
-      selected_seat_ids
+      selected_seats_data
       |> String.split(",")
       |> Enum.map(
         fn x ->
