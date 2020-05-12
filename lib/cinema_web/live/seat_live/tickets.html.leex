@@ -1,0 +1,27 @@
+<h1>Tickets</h1>
+<%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
+  <div class="ticket-info">
+    <%= if length(@selected_seats_data) > 0 do %>
+      <h3 class="ticket-number"># <%= i + 1 %></h3>
+    <% end %>
+    <div class="ticket-data">
+      <div>
+        <h3><%= seat_data.seat.ticket.uuid %></h3>
+        <h4>Row: <%= seat_data.row %></h4>
+        <h4 class="mb-0">Number: <%= seat_data.seat.number %></h4>
+      </div>
+    </div>
+    <div class="ticket-info__actions">
+      <div class="ticket-info__actions__action ticket-info__actions__action--left">
+        <a href="">Share</a>
+      </div>
+      <div class="ticket-info__actions__action ticket-info__actions__action--right">
+        <a href="">Download</a>
+      </div>
+    </div>
+  </div>
+  <%= if i != length(@selected_seats_data) - 1 do %>
+    <hr />
+  <% end %>
+<% end %>
+<br />

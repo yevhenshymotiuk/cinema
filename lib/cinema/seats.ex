@@ -126,12 +126,14 @@ defmodule Cinema.Seats do
     Seat.changeset(seat, attrs)
   end
 
-  def create_ticket(%Seat{} = seat, attrs \\ %{}) do
+  def create_ticket!(%Seat{} = seat, attrs \\ %{}) do
     ticket = Ecto.build_assoc(seat, :ticket, attrs)
 
     Repo.insert(ticket)
 
     broadcast({:ok, get_seat!(seat.id)}, :seat_updated)
+
+    ticket
   end
 
   def subscribe do
