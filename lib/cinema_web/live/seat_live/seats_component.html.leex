@@ -16,8 +16,8 @@
   </div>
 
   <%= if @selected_seats != [] do %>
-    <div class="selected-seats">
-      <div class="selected-seat-numbers">
+    <div class="seats__selected-numbers">
+      <div>
         Selected:
         <%= for {seat, i} <- Enum.with_index(@selected_seats) do %>
           <span><%= seat.number %><%= if i != length(@selected_seats) - 1 do %>,<% end %></span>

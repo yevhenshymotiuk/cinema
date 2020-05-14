@@ -3,7 +3,7 @@
 
 <blockquote>
   <%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
-    <div class="selected-seat-info">
+    <div class="selected-seat">
       <h3>Row: <%= seat_data.row %></h3>
       <h3>Number: <%= seat_data.seat.number %></h3>
     </div>
