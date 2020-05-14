@@ -30,53 +30,70 @@
   display: flex
   justify-content: space-around
 
-.ticket
+.tickets
+  display: flex
+  flex-wrap: wrap
+  align-items: space-between
+  justify-content: space-around
+
+.tickets__elem
+  padding: 5px
+  margin-bottom: 1em
+  width: 48%
   display: flex
   flex-direction: column
-  padding: 5px
   border: 1px solid lightgrey
   border-radius: 15px
-  align-items: start
 
-.ticket__number
+  &:hover
+    & .tickets__number
+      background: white
+      visibility: visible
+
+.tickets__number
   position: absolute
+  visibility: hidden
   padding: 5px
   border-right: 1px solid lightgrey
   border-bottom: 1px solid lightgrey
   border-radius: 8px
 
-.ticket__data
+.tickets__data
   width: 100%
   display: flex
-  flex-direction: row
   justify-content: space-around
 
-.ticket__qr-code
+.tickets__qr-code
   width: 10em
 
-.ticket__seat
+.tickets__seat
   padding: 30px
   display: flex
   flex-direction: column
-  align-items: center
-  justify-content: center
 
-.ticket__actions
+.tickets__actions
   width: 100%
   display: flex
   justify-content: space-around
 
-.ticket__actions__elem
+.tickets__action
   width: 100%
   padding: 5px
   text-align: center
   border-top: 1px solid lightgrey
   border-radius: 10px
 
-.ticket__actions__elem--left
+.tickets__action--left
   border-radius: 10px 10px 0px
   border-right: 1px solid lightgrey
 
-.ticket__actions__elem--right
+.tickets__action--right
   border-radius: 10px 10px 10px 0px
   border-left: 1px solid lightgrey
+
+@media (max-width: 640px)
+  .tickets__data
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center

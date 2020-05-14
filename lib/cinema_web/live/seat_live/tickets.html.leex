@@ -1,36 +1,33 @@
 <h1>Tickets</h1>
-<%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
-  <div class="ticket">
-    <%= if length(@selected_seats_data) > 0 do %>
-      <h3 class="ticket__number"># <%= i + 1 %></h3>
-    <% end %>
-    <div class="ticket__data">
-      <img
-        class="ticket__qr-code"
-        src="data:image/png;base64,
-               <%= seat_data.seat.ticket.uuid
-                 |> EQRCode.encode()
-                 |> EQRCode.png()
-                 |> Base.encode64() %>"
-        alt="" />
-      <div class="ticket__seat">
-        <div>
+
+<div class="tickets">
+  <%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
+    <div class="tickets__elem">
+      <%= if length(@selected_seats_data) > 0 do %>
+        <h3 class="tickets__number"># <%= i + 1 %></h3>
+      <% end %>
+      <div class="tickets__data">
+        <img
+          class="tickets__qr-code"
+          src="data:image/png;base64,
+                <%= seat_data.seat.ticket.uuid
+                  |> EQRCode.encode()
+                  |> EQRCode.png()
+                  |> Base.encode64() %>"
+          alt="" />
+        <div class="tickets__seat">
           <h4>Row: <%= seat_data.row %></h4>
           <h4 class="mb-0">Number: <%= seat_data.seat.number %></h4>
         </div>
       </div>
-    </div>
-    <div class="ticket__actions">
-      <div class="ticket__actions__elem ticket__actions__elem--left">
-        <a href="#">Share</a>
+      <div class="tickets__actions">
+        <div class="tickets__action tickets__action--left">
+          <a href="#">Share</a>
+        </div>
+        <div class="tickets__action tickets__action--right">
+          <a href="#">Download</a>
+        </div>
       </div>
-      <div class="ticket__actions__elem ticket__actions__elem--right">
-        <a href="#">Download</a>
-      </div>
     </div>
-  </div>
-  <%= if i != length(@selected_seats_data) - 1 do %>
-    <hr />
   <% end %>
-<% end %>
-<br />
+</div>
