@@ -7,7 +7,11 @@
     <div class="ticket__data">
       <img
         class="ticket__qr-code"
-        src="data:image/png;base64,<%= seat_data.seat.ticket.uuid |> EQRCode.encode() |> EQRCode.png() |> Base.encode64() %>"
+        src="data:image/png;base64,
+               <%= seat_data.seat.ticket.uuid
+                 |> EQRCode.encode()
+                 |> EQRCode.png()
+                 |> Base.encode64() %>"
         alt="" />
       <div class="ticket__seat">
         <div>
