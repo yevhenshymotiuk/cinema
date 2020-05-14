@@ -5,18 +5,23 @@
       <h3 class="ticket-number"># <%= i + 1 %></h3>
     <% end %>
     <div class="ticket-data">
-      <div>
-        <h3><%= seat_data.seat.ticket.uuid %></h3>
-        <h4>Row: <%= seat_data.row %></h4>
-        <h4 class="mb-0">Number: <%= seat_data.seat.number %></h4>
+      <img
+        class="ticket-qr-code"
+        src="data:image/png;base64,<%= seat_data.seat.ticket.uuid |> EQRCode.encode() |> EQRCode.png() |> Base.encode64() %>"
+        alt="" />
+      <div class="ticket-seat-data">
+        <div>
+          <h4>Row: <%= seat_data.row %></h4>
+          <h4 class="mb-0">Number: <%= seat_data.seat.number %></h4>
+        </div>
       </div>
     </div>
     <div class="ticket-info__actions">
       <div class="ticket-info__actions__action ticket-info__actions__action--left">
-        <a href="">Share</a>
+        <a href="#">Share</a>
       </div>
       <div class="ticket-info__actions__action ticket-info__actions__action--right">
-        <a href="">Download</a>
+        <a href="#">Download</a>
       </div>
     </div>
   </div>
