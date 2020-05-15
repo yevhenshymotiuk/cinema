@@ -1,7 +1,7 @@
 defmodule CinemaWeb.TicketLive.Show do
   use CinemaWeb, :live_view
 
-  alias Cinema.Tickets
+  alias Cinema.{Repo, Tickets}
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,10 +10,15 @@ defmodule CinemaWeb.TicketLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    ticket =
+      id
+      |> Tickets.get_ticket!()
+      |> Repo.preload([:seat])
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:ticket, Tickets.get_ticket!(id))}
+     |> assign(:ticket, ticket)}
   end
 
   defp page_title(:show), do: "Show Ticket"

@@ -2,14 +2,10 @@ defmodule Cinema.Repo.Migrations.CreateTickets do
   use Ecto.Migration
 
   def change do
-    execute("CREATE EXTENSION IF NOT EXISTS \"pgcrypto\";")
-
-    create table(:tickets) do
-      add :uuid, :uuid, default: fragment("gen_random_uuid()")
+    create table(:tickets, primary_key: false) do
+      add :id, :binary_id, primary_key: true
 
       timestamps()
     end
-
-    create unique_index(:tickets, :uuid)
   end
 end

@@ -2,9 +2,9 @@ defmodule Cinema.Tickets.Ticket do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "tickets" do
-    field :uuid, :binary_id
+  @primary_key {:id, :binary_id, autogenerate: true}
 
+  schema "tickets" do
     belongs_to :seat, Cinema.Seats.Seat
     belongs_to :purchase, Cinema.Purchases.Purchase, type: :binary_id
 
