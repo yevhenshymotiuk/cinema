@@ -5,6 +5,8 @@ defmodule Cinema.Tickets.Ticket do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "tickets" do
+    field :row_number, :integer
+
     belongs_to :seat, Cinema.Seats.Seat
     belongs_to :purchase, Cinema.Purchases.Purchase, type: :binary_id
 
@@ -14,7 +16,7 @@ defmodule Cinema.Tickets.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:row_number])
+    |> validate_required([:row_number])
   end
 end
