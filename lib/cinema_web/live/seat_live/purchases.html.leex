@@ -1,0 +1,39 @@
+<%= if NaiveDateTime.diff(NaiveDateTime.utc_now(), @purchase.inserted_at) > 600 do %>
+  <div class="text-center">
+    Time for viewing this purchase has expired ¯\_(ツ)_/¯
+  </div>
+<% else %>
+  <h1>Tickets</h1>
+
+  <div class="tickets">
+    <%= for {ticket, i} <- Enum.with_index(@tickets) do %>
+      <div class="tickets__elem">
+        <%= if length(@tickets) > 0 do %>
+          <h3 class="tickets__number"># <%= i + 1 %></h3>
+        <% end %>
+        <div class="tickets__data">
+          <img
+            class="tickets__qr-code"
+            src="data:image/png;base64,
+                  <%= ticket.uuid
+                    |> EQRCode.encode()
+                    |> EQRCode.png()
+                    |> Base.encode64() %>"
+            alt="" />
+          <div class="tickets__seat">
+            <h4>Row: <%#= ticket.row %></h4>
+            <h4 class="mb-0">Number: <%= ticket.seat.number %></h4>
+          </div>
+        </div>
+        <div class="tickets__actions">
+          <div class="tickets__action tickets__action--left">
+            <a href="#">Share</a>
+          </div>
+          <div class="tickets__action tickets__action--right">
+            <a href="#">Download</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

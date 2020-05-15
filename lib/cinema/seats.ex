@@ -6,6 +6,7 @@ defmodule Cinema.Seats do
   import Ecto.Query, warn: false
   alias Cinema.Repo
   alias Cinema.Seats.Seat
+  alias Cinema.Purchases.Purchase
 
   @doc """
   Returns the list of seats.
@@ -126,8 +127,9 @@ defmodule Cinema.Seats do
     Seat.changeset(seat, attrs)
   end
 
-  def create_ticket!(%Seat{} = seat, attrs \\ %{}) do
+  def create_ticket!(%Seat{} = seat, %Purchase{} = purchase, attrs \\ %{}) do
     ticket = Ecto.build_assoc(seat, :ticket, attrs)
+    ticket = Ecto.build_assoc(purchase, :tickets, ticket)
 
     Repo.insert(ticket)
 
