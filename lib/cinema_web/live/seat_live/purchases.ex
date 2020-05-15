@@ -13,6 +13,7 @@ defmodule CinemaWeb.SeatLive.Purchases do
   def handle_params(%{"id" => id}, _, socket) do
     purchase = Purchase |> Repo.get!(id) |> Repo.preload([:tickets])
     tickets = Enum.map(purchase.tickets, & Repo.preload(&1, [:seat]))
+    IO.inspect(tickets)
 
     {
       :noreply,

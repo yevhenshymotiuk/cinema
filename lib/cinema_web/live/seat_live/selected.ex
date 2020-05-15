@@ -40,14 +40,16 @@ defmodule CinemaWeb.SeatLive.Selected do
   def handle_event("buy-tickets", _, socket) do
     selected_seats_data = socket.assigns.selected_seats_data
 
-    selected_seats = Enum.map(selected_seats_data, & &1.seat)
-
     purchase = %Purchase{} |> Purchase.changeset(%{}) |> Repo.insert!()
 
     Enum.each(
-      selected_seats,
-      fn seat ->
-        Seats.create_ticket!(seat, purchase)
+      selected_seats_data,
+      fn %{seat: seat, row: row_number} ->
+        Seats.create_ticket!(
+          seat,
+          purchase,
+          %{row_number: String.to_integer(row_number)}
+        )
       end
     )
 
