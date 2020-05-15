@@ -1,7 +1,8 @@
 defmodule CinemaWeb.SeatLive.Selected do
   use CinemaWeb, :live_view
 
-  alias Cinema.{Halls, Seats}
+  alias Cinema.{Repo, Halls, Seats}
+  alias Cinema.Purchases.Purchase
 
   @impl true
   def mount(_params, _session, socket) do
@@ -35,26 +36,29 @@ defmodule CinemaWeb.SeatLive.Selected do
       |> assign(:selected_seats_data, selected_seats_data)
     }
   end
-
   @impl true
   def handle_event("buy-tickets", _, socket) do
     selected_seats_data = socket.assigns.selected_seats_data
-      
+
     selected_seats = Enum.map(selected_seats_data, & &1.seat)
 
-    ticket_ids = Enum.map(selected_seats, & Seats.create_ticket!(&1).id)
+    purchase = %Purchase{} |> Purchase.changeset(%{}) |> Repo.insert!()
+
+    Enum.each(
+      selected_seats,
+      fn seat ->
+        Seats.create_ticket!(seat, purchase)
+      end
+    )
 
     {
       :noreply,
       socket
       |> push_redirect(
-        to: Routes.seat_tickets_path(
+        to: Routes.seat_purchases_path(
           socket,
-          :tickets,
-          socket.assigns.hall.id,
-          selected_seats_data
-          |> Enum.map(& "#{&1.seat.id}|#{&1.row}")
-          |> Enum.join(",")
+          :purchases,
+          purchase.id
         )
       )
       |> put_flash(:info, "Tickets were successfully bought")

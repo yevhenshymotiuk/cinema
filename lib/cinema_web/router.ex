@@ -32,9 +32,10 @@ defmodule CinemaWeb.Router do
       live "/seats/:id/edit", SeatLive.Index, :edit
 
       live "/seats/selected/:selected_seats_data", SeatLive.Selected, :selected
-      live "/seats/selected/:selected_seats_data/tickets", SeatLive.Tickets, :tickets
       live "/seats/:id/show/edit", SeatLive.Show, :edit
     end
+
+    live "/purchases/:id", SeatLive.Purchases, :purchases
 
     live "/tickets", TicketLive.Index, :index
     live "/tickets/new", TicketLive.Index, :new

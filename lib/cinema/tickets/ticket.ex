@@ -6,6 +6,7 @@ defmodule Cinema.Tickets.Ticket do
     field :uuid, :binary_id
 
     belongs_to :seat, Cinema.Seats.Seat
+    belongs_to :purchase, Cinema.Purchases.Purchase, type: :binary_id
 
     timestamps()
   end
