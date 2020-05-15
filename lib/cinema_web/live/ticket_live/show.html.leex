@@ -1,18 +1,18 @@
 <div class="flex justify-center">
-<div class="tickets__elem">
-  <div class="tickets__data">
-    <img
-      class="tickets__qr-code"
-      src="data:image/png;base64,
-            <%= "#{CinemaWeb.Router.Helpers.url(@socket)}/tickets/#{@ticket.id}"
-              |> EQRCode.encode()
-              |> EQRCode.png()
-              |> Base.encode64() %>"
-      alt="" />
-    <div class="tickets__seat">
-        <h4>Row: <%= @ticket.row_number %></h4>
-        <h4 class="mb-0">Number: <%= @ticket.seat.number %></h4>
+  <div class="tickets__elem">
+    <div class="tickets__data">
+      <img
+        class="tickets__qr-code"
+        src="data:image/png;base64,
+              <%= "#{CinemaWeb.Router.Helpers.url(@socket)}/tickets/#{@ticket.id}"
+                |> EQRCode.encode()
+                |> EQRCode.png()
+                |> Base.encode64() %>"
+        alt="" />
+      <div class="tickets__seat">
+          <h4>Row: <%= @ticket.row_number %></h4>
+          <h4 class="mb-0">Number: <%= @ticket.seat.number %></h4>
+      </div>
     </div>
   </div>
-</div>
 </div>
