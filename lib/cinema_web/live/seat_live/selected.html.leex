@@ -1,6 +1,10 @@
 <h1>Selected seats:</h1>
 <br />
 
+<label for="email">Email:</label>
+<input id="email" type="email" name="email" phx-blur="email-input" />
+<br /><br />
+
 <blockquote>
   <%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
     <div class="selected-seat">
@@ -17,5 +21,9 @@
 
 <div>
   <%= live_redirect "Back", to: Routes.seat_index_path(@socket, :index, @hall.id) %>
-  <button phx-click="buy-tickets">Buy</button>
+  <button
+    phx-click="buy-tickets"
+    phx-disable-with="Loading...">
+    Buy
+  </button>
 </div>

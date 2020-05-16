@@ -1,0 +1,31 @@
+<h1>Tickets</h1>
+
+<div class="tickets">
+  <img src="image.png" alt="test image" />
+
+  <%= for {ticket, i} <- Enum.with_index(@tickets) do %>
+    <div class="tickets__elem">
+      <h3 class="tickets__number">
+         # <%= if length(@tickets) > 1 do %><%= i + 1 %><% end %>
+      </h3>
+      <div class="tickets__data">
+        <img
+          class="tickets__qr-code"
+          src="data:image/png;base64,
+                <%= "#{CinemaWeb.Router.Helpers.url(@socket)}/tickets/#{ticket.id}"
+                  |> EQRCode.encode()
+                  |> EQRCode.png()
+                  |> Base.encode64() %>"
+          alt="QR code" />
+        <div class="tickets__seat">
+          <h4>Row: <%= ticket.row_number %></h4>
+          <h4 class="mb-0">Number: <%= ticket.seat.number %></h4>
+        </div>
+      </div>
+    </div>
+
+    <%= if i != length(@tickets) - 1 do %>
+      <hr />
+    <% end %>
+  <% end %>
+</div>

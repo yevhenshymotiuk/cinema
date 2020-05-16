@@ -38,3 +38,6 @@ npm-debug.log
 
 # formatter
 .formatter.exs
+
+# config secrets
+config.secret.exs

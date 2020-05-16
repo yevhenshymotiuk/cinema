@@ -48,6 +48,7 @@ defmodule Cinema.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:eqrcode, "~> 0.1.7"},
+      {:sendgrid, "~> 2.0"},
     ]
   end
 
