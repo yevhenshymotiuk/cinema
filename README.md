@@ -1,5 +1,9 @@
 # Cinema
 
+Implementation of tickets buying system of arbitrary cinema
+
+---
+
 To start your Phoenix server:
 
   * Setup the project with `mix setup`
