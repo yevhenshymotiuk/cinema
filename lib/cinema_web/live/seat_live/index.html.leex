@@ -1,5 +1,8 @@
-<h1 class="text-center">Hall <%= @hall.number %></h1>
-<br />
+<h3 class="mb-0">Hall <%= @hall.number %></h3>
+<hr />
+
+<div class="screen"></div>
+<br /><br /><br />
 
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, CinemaWeb.SeatLive.FormComponent,
