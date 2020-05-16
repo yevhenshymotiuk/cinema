@@ -1,4 +1,4 @@
-<%= if NaiveDateTime.diff(NaiveDateTime.utc_now(), @purchase.inserted_at) > 600 do %>
+<%= if NaiveDateTime.diff(NaiveDateTime.utc_now(), @purchase.inserted_at) > 6000 do %>
   <div class="text-center">
     Time for viewing this purchase has expired ¯\_(ツ)_/¯
   </div>
