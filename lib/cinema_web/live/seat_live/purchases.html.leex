@@ -27,7 +27,7 @@
         </div>
         <div class="tickets__actions">
           <div class="tickets__action tickets__action--left">
-            <a href="#">Share</a>
+            <%= live_redirect "View", to: Routes.ticket_show_path(@socket, :show, ticket.id) %>
           </div>
           <div class="tickets__action tickets__action--right">
             <a href="#">Download</a>
