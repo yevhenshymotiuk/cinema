@@ -1,8 +1,6 @@
 <h1>Tickets</h1>
 
 <div class="tickets">
-  <img src="image.png" alt="test image" />
-
   <%= for {ticket, i} <- Enum.with_index(@tickets) do %>
     <div class="tickets__elem">
       <h3 class="tickets__number">

@@ -7,7 +7,7 @@ defmodule CinemaWeb.SeatLive.Selected do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(email: "")}
+    {:ok, assign(socket, email: "")}
   end
 
   @impl true
@@ -78,9 +78,9 @@ defmodule CinemaWeb.SeatLive.Selected do
           :noreply,
           socket
           |> push_redirect(
-            to: Routes.seat_purchases_path(
+            to: Routes.seat_purchase_path(
               socket,
-              :purchases,
+              :purchase,
               purchase.id
             )
           )

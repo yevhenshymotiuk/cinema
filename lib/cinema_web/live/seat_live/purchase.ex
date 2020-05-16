@@ -1,4 +1,4 @@
-defmodule CinemaWeb.SeatLive.Purchases do
+defmodule CinemaWeb.SeatLive.Purchase do
   use CinemaWeb, :live_view
 
   alias Cinema.Repo
@@ -23,5 +23,5 @@ defmodule CinemaWeb.SeatLive.Purchases do
     }
   end
 
-  defp page_title(:purchases), do: "Purchase"
+  defp page_title(:purchase), do: "Purchase"
 end
