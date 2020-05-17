@@ -1,4 +1,4 @@
-<%= if Enum.any?(@selected_seats_data, & is_nil(&1.seat.ticket)) do %>
+<%= if Enum.all?(@selected_seats_data, & is_nil(&1.seat.ticket)) do %>
   <h1>Selected seats:</h1>
   <br />
 
