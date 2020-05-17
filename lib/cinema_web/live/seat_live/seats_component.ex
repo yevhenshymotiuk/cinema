@@ -9,14 +9,6 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
       |> Enum.sort_by(& &1.number)
       |> Enum.chunk_every(@seats_in_row)
 
-    row = fn n ->
-      if rem(n, @seats_in_row) == 0 do
-        div(n, @seats_in_row)
-      else
-        div(n, @seats_in_row) + 1
-      end
-    end
-
     {
       :ok,
       socket
@@ -24,7 +16,14 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
       |> assign(hall_id: assigns.id)
       |> assign(seats: seats)
       |> assign(selected_seats: Enum.reverse(assigns.selected_seats))
-      |> assign(row: row)
     }
+  end
+
+  def row(n) do
+    if rem(n, @seats_in_row) == 0 do
+      div(n, @seats_in_row)
+    else
+      div(n, @seats_in_row) + 1
+    end
   end
 end

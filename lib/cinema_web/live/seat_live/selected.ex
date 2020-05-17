@@ -4,6 +4,7 @@ defmodule CinemaWeb.SeatLive.Selected do
   alias Cinema.{Repo, Halls, Seats}
   alias Cinema.Purchases.Purchase
   alias SendGrid.{Email, Mail}
+  alias CinemaWeb.SeatLive.SeatsComponent
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,19 +21,7 @@ defmodule CinemaWeb.SeatLive.Selected do
 
     IO.puts(socket.assigns.email)
 
-    selected_seats_data =
-      selected_seats_data
-      |> String.split(",")
-      |> Enum.map(
-        fn x ->
-          [id, row] = String.split(x, "|")
-
-          %{
-            seat: id |> Seats.get_seat!() |> Repo.preload([:ticket]),
-            row: row
-          }
-        end
-      )
+    selected_seats_data = decode(selected_seats_data)
 
     {
       :noreply,
@@ -99,4 +88,25 @@ defmodule CinemaWeb.SeatLive.Selected do
   end
 
   defp page_title(:selected), do: "Selected seats"
+
+  def encode(selected_seats) do
+    selected_seats
+    |> Enum.map(& "#{&1.id}|#{SeatsComponent.row(&1.number)}")
+    |> Enum.join(",")
+  end
+
+  def decode(selected_seats_data) do
+    selected_seats_data
+    |> String.split(",")
+    |> Enum.map(
+      fn x ->
+        [id, row] = String.split(x, "|")
+
+        %{
+          seat: id |> Seats.get_seat!() |> Repo.preload([:ticket]),
+          row: row
+        }
+      end
+    )
+  end
 end
