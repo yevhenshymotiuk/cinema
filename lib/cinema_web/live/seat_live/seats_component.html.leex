@@ -29,9 +29,7 @@
           @socket,
           :selected,
           @hall_id,
-          @selected_seats
-          |> Enum.map(& "#{&1.id}|#{@row.(&1.number)}")
-          |> Enum.join(",")
+          CinemaWeb.SeatLive.Selected.encode(@selected_seats)
         ) %>
     </div>
   <% end %>
