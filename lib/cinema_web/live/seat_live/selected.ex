@@ -27,7 +27,10 @@ defmodule CinemaWeb.SeatLive.Selected do
         fn x ->
           [id, row] = String.split(x, "|")
 
-          %{seat: Seats.get_seat!(id), row: row}
+          %{
+            seat: id |> Seats.get_seat!() |> Repo.preload([:ticket]),
+            row: row
+          }
         end
       )
 
@@ -54,7 +57,7 @@ defmodule CinemaWeb.SeatLive.Selected do
           purchase,
           %{row_number: String.to_integer(row_number)}
         )
-        |> Repo.preload([:seat])
+        |> Repo.preload([seat: :hall])
       end
     )
 
