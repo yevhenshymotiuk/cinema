@@ -17,9 +17,7 @@ defmodule CinemaWeb.Router do
   scope "/", CinemaWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-
-    live "/halls", HallLive.Index, :index
+    live "/", HallLive.Index, :index
     live "/halls/new", HallLive.Index, :new
     live "/halls/:id/edit", HallLive.Index, :edit
 
