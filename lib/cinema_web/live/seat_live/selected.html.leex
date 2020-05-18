@@ -2,8 +2,14 @@
   <h1>Selected seats:</h1>
   <br />
 
-  <label for="email">Email:</label>
-  <input id="email" type="email" name="email" phx-blur="email-input" />
+  <form phx-change="email-form-changed">
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      value="<%= @email %>" />
+  </form>
   <br /><br />
 
   <blockquote>

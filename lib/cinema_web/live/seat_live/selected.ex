@@ -81,10 +81,8 @@ defmodule CinemaWeb.SeatLive.Selected do
     end
   end
 
-  def handle_event("email-input", %{"value" => value}, socket) do
-    IO.puts(value)
-
-    {:noreply, assign(socket, email: value)}
+  def handle_event("email-form-changed", %{"email" => email}, socket) do
+    {:noreply, assign(socket, email: email)}
   end
 
   defp page_title(:selected), do: "Selected seats"
