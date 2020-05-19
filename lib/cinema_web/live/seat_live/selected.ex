@@ -21,7 +21,10 @@ defmodule CinemaWeb.SeatLive.Selected do
 
     IO.puts(socket.assigns.email)
 
-    selected_seats_data = decode(selected_seats_data)
+    selected_seats_data =
+      selected_seats_data
+      |> decode()
+      |> Enum.sort_by(& &1.seat.number)
 
     {
       :noreply,
