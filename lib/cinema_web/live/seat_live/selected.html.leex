@@ -2,7 +2,7 @@
   <h1>Selected seats:</h1>
   <br />
 
-  <form phx-change="email-form-changed">
+  <form onsumbit="(e) => e.preventDefault();" phx-change="email-form-changed">
     <label for="email">Email:</label>
     <input
       id="email"
