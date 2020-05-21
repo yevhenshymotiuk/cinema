@@ -20,10 +20,12 @@
                     |> EQRCode.png()
                     |> Base.encode64() %>"
             alt="" />
-          <div class="tickets__seat">
-            <h4>Hall: <%= ticket.seat.hall.number %></h4>
-            <h4>Row: <%= ticket.row_number %></h4>
-            <h4 class="mb-0">Number: <%= ticket.seat.number %></h4>
+          <div class="tickets__seat-wrapper">
+            <div class="tickets__seat">
+              <h4>Hall: <%= ticket.seat.hall.number %></h4>
+              <h4>Row: <%= ticket.row_number %></h4>
+              <h4 class="mb-0">Number: <%= ticket.seat.number %></h4>
+            </div>
           </div>
         </div>
         <div class="tickets__actions">

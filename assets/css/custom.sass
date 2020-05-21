@@ -8,7 +8,14 @@
   border-right: 0.3em solid lightgrey
   border-radius: 2em 2em 0 0
 
+.seats-component__seats
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-around
+
 .seat
+  margin: 2% 3% 2% 3%
+  flex: 0 0 4%
   text-align: center
   border: 1px solid lightgrey
   border-radius: 0.3em
@@ -28,7 +35,7 @@
   &:hover
     background-color: #ffffcc
 
-.seats__selected-numbers
+.seats-component__selected-numbers
   display: flex
   justify-content: space-between
   align-items: center
@@ -71,11 +78,16 @@
   justify-content: space-around
 
 .tickets__qr-code
+  padding: 2%
   width: 40%
 
-.tickets__seat
+.tickets__seat-wrapper
   width: 40%
-  padding: 5% 13% 5% 13%
+  padding: 2%
+  display: flex
+  justify-content: center
+
+.tickets__seat
   display: flex
   flex-direction: column
   justify-content: center
@@ -105,7 +117,8 @@
     width: 100%
     border-radius: 15px
 
-  .tickets__seat
+  .tickets__seat-wrapper
+    width: 100%
     padding: 12% 5% 12% 5%
 
   .tickets__data

@@ -1,22 +1,17 @@
-<div class="seats">
-  <div style="display: flex; flex-direction: column;">
-    <%= for seats_row <- @seats do %>
-      <div style="display: flex; justify-content: space-around;">
-        <%= for seat <- seats_row do %>
-          <%= live_component @socket,
-            CinemaWeb.SeatLive.SeatComponent,
-            id: seat.number,
-            seat: seat,
-            selected_seats: @selected_seats,
-            hall: @hall %>
-        <% end %>
-      </div>
-      <br />
+<div class="seats-component">
+  <div class="seats-component__seats">
+    <%= for seat <- @seats do %>
+      <%= live_component @socket,
+        CinemaWeb.SeatLive.SeatComponent,
+        id: seat.number,
+        seat: seat,
+        selected_seats: @selected_seats,
+        hall: @hall %>
     <% end %>
   </div>
 
   <%= if @selected_seats != [] do %>
-    <div class="seats__selected-numbers">
+    <div class="seats-component__selected-numbers">
       <div>
         Selected:
         <%= for {seat, i} <- Enum.with_index(@selected_seats) do %>
