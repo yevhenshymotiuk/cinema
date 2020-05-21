@@ -1,7 +1,7 @@
 defmodule CinemaWeb.SeatLive.SeatsComponent do
   use CinemaWeb, :live_component
 
-  @seats_in_row 5
+  @seats_in_row 10
 
   def update(assigns, socket) do
     seats =
