@@ -19,8 +19,6 @@ defmodule CinemaWeb.SeatLive.Selected do
   ) do
     hall = Halls.get_hall!(hall_id)
 
-    IO.puts(socket.assigns.email)
-
     selected_seats_data =
       selected_seats_data
       |> decode()
