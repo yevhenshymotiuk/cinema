@@ -1,15 +1,16 @@
 <%= if @free do %>
-  <%#= live_redirect to: Routes.seat_show_path(@socket, :show, @hall.id, @seat) do %>
-    <div
-      style="width: 2em;"
-      class="seat seat--state-free <%= if @selected do %> <%= "seat--selected" %> <% end %>"
-      phx-click="select"
-      phx-value-seat_id="<%= @seat.id %>">
-      <%= @seat.number %>
-    </div>
-  <%# end %>
+  <div
+    style="width: 2em;"
+    class="seat seat--free <%= if @selected do %> <%= "seat--selected" %> <% end %>"
+    phx-click="select"
+    onclick=""
+    phx-value-seat_id="<%= @seat.id %>">
+    <%= @seat.number %>
+  </div>
 <% else %>
-  <div style="width: 2em;" class="seat seat--state-sold">
+  <div
+      style="width: 2em;"
+      class="seat <%= if @reserved do %> <%= "seat--reserved" %> <% else %> <%= "seat--sold" %> <% end %>">
     <%= @seat.number %>
   </div>
 <% end %>

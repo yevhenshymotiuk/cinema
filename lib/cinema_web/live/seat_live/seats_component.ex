@@ -8,6 +8,8 @@ defmodule CinemaWeb.SeatLive.SeatsComponent do
       assigns.seats
       |> Enum.sort_by(& &1.number)
 
+    if Enum.any?(seats, & not is_nil(&1.reservation_ip)), do: IO.puts("Reservation")
+
     {
       :ok,
       socket

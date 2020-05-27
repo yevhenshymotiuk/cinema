@@ -3,12 +3,14 @@ defmodule CinemaWeb.SeatLive.Selected do
 
   alias Cinema.{Repo, Halls, Seats}
   alias Cinema.Purchases.Purchase
+  alias Cinema.Timer
   alias SendGrid.{Email, Mail}
   alias CinemaWeb.SeatLive.SeatsComponent
+  alias CinemaWeb.SeatLive.Index
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, email: "")}
+    {:ok, assign(socket, email: "", ip: Index.get_ip(socket))}
   end
 
   @impl true
@@ -17,24 +19,86 @@ defmodule CinemaWeb.SeatLive.Selected do
     _,
     socket
   ) do
+    ip = socket.assigns.ip
     hall = Halls.get_hall!(hall_id)
-
     selected_seats_data =
       selected_seats_data
       |> decode()
       |> Enum.sort_by(& &1.seat.number)
 
+    reserved =
+      Enum.all?(
+        selected_seats_data,
+        & is_nil(&1.seat.ticket) and not is_nil(&1.seat.reservation_ip)
+      )
+    sold =
+      Enum.all?(
+        selected_seats_data,
+        & not is_nil(&1.seat.ticket)
+      )
+    free = not reserved and not sold
+
+    {selected_seats_data, socket} =
+      if free do
+        selected_seats_data =
+          Enum.map(
+            selected_seats_data,
+            fn %{seat: seat, row: row} ->
+              %{
+                seat: Seats.update_seat!(
+                  seat,
+                  %{reservation_ip: ip}
+                ),
+                row: row
+              }
+            end
+          )
+
+        self = self()
+
+        {:ok, timer} =
+          Timer.start(
+            seconds: 10,
+            callback: fn ->
+              seats =
+                Enum.map(
+                  selected_seats_data,
+                  & Seats.update_seat!(&1.seat, %{reservation_ip: nil})
+                )
+              Process.send(self, {:cancel_reservation, seats}, [])
+            end
+          )
+
+        {selected_seats_data, assign(socket, timer: timer)}
+      else
+        {selected_seats_data, socket}
+      end
+
+    reserved_user = Enum.all?(
+      selected_seats_data,
+      & &1.seat.reservation_ip == ip
+    )
+
     {
       :noreply,
-      socket
-      |> assign(:page_title, page_title(socket.assigns.live_action))
-      |> assign(:hall, hall)
-      |> assign(:selected_seats_data, selected_seats_data)
+      assign(
+        socket,
+        page_title: page_title(socket.assigns.live_action),
+        hall: hall,
+        selected_seats_data: selected_seats_data,
+        ip: ip,
+        reserved: reserved,
+        reserved_user: reserved_user,
+        free: free,
+        sold: sold,
+      )
     }
   end
 
   @impl true
   def handle_event("buy-tickets", _, socket) do
+    Timer.stop(socket.assigns.timer)
+
     selected_seats_data = socket.assigns.selected_seats_data
 
     purchase = %Purchase{} |> Purchase.changeset(%{}) |> Repo.insert!()
@@ -47,7 +111,7 @@ defmodule CinemaWeb.SeatLive.Selected do
           purchase,
           %{row_number: String.to_integer(row_number)}
         )
-        |> Repo.preload([seat: :hall])
+        |> Repo.preload(seat: [:hall])
       end
     )
 
@@ -84,6 +148,24 @@ defmodule CinemaWeb.SeatLive.Selected do
 
   def handle_event("email-form-changed", %{"email" => email}, socket) do
     {:noreply, assign(socket, email: email)}
+  end
+
+  @impl true
+  def handle_info({:cancel_reservation, seats}, socket) do
+    hall_id = socket.assigns.hall.id
+
+    {
+      :noreply,
+      socket
+      |> push_redirect(
+        to: Routes.seat_index_path(
+          socket,
+          :index,
+          hall_id
+        )
+      )
+      |> put_flash(:info, "Reservation time has expired!")
+    }
   end
 
   defp page_title(:selected), do: "Selected seats"

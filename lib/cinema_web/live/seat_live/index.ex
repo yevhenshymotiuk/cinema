@@ -10,10 +10,13 @@ defmodule CinemaWeb.SeatLive.Index do
 
     {
       :ok,
-      socket
-      |> assign(seats: fetch_seats(hall_id))
-      |> assign(hall: Halls.get_hall!(hall_id))
-      |> assign(selected_seats: [])
+      assign(
+        socket,
+        seats: fetch_seats(hall_id),
+        hall: Halls.get_hall!(hall_id),
+        selected_seats: [],
+        ip: get_ip(socket)
+      )
     }
   end
 
@@ -65,6 +68,24 @@ defmodule CinemaWeb.SeatLive.Index do
     }
   end
 
+  def handle_event("confirm-selection", _, socket) do
+    hall_id = socket.assigns.hall.id
+    selected_seats = socket.assigns.selected_seats
+
+    {
+      :noreply,
+      push_redirect(
+        socket,
+        to: Routes.seat_selected_path(
+          socket,
+          :selected,
+          hall_id,
+          CinemaWeb.SeatLive.Selected.encode(selected_seats)
+        )
+      )
+    }
+  end
+
   @impl true
   def handle_info({:seat_created, seat}, socket) do
     {:noreply, update(socket, :seats, fn seats -> [seat | seats] end)}
@@ -83,5 +104,18 @@ defmodule CinemaWeb.SeatLive.Index do
 
   defp fetch_seats(hall_id) do
     Seats.list_seats(hall_id)
+  end
+
+  def get_ip(socket) do
+    info = get_connect_info(socket)
+
+    case info do
+      nil -> nil
+
+      _ ->
+        info[:peer_data][:address]
+        |> Tuple.to_list()
+        |> Enum.join(".")
+    end
   end
 end
