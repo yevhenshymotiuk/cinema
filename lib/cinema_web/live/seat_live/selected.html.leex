@@ -1,4 +1,4 @@
-<%= if Enum.all?(@selected_seats_data, & is_nil(&1.seat.ticket)) do %>
+<%= if (@reserved and @reserved_user) or @free do %>
   <h1>Selected seats:</h1>
   <br />
 
@@ -36,6 +36,11 @@
   </div>
 <% else %>
   <div class="text-center">
-      You have selected a seat ticket for which is already sold
+      You have selected a seat ticket for which is already
+      <%= if @reserved do %>
+        reserved
+      <% else %>
+        sold
+      <% end %>
   </div>
 <% end %>

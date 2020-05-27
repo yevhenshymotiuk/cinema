@@ -19,13 +19,11 @@
         <% end %>
       </div>
 
-      <%= live_redirect "Confirm",
-        to: Routes.seat_selected_path(
-          @socket,
-          :selected,
-          @hall_id,
-          CinemaWeb.SeatLive.Selected.encode(@selected_seats)
-        ) %>
+      <a
+          href="#"
+          phx-click="confirm-selection">
+          Confirm
+      </a>
     </div>
   <% end %>
 </div>

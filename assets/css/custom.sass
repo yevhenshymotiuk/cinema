@@ -20,12 +20,15 @@
   border: 1px solid lightgrey
   border-radius: 0.3em
 
-  &.seat--state-free
+  &.seat--free
     &:hover
       cursor: pointer
       border-color: grey
 
-  &.seat--state-sold
+  &.seat--sold
+    background-color: grey
+
+  &.seat--reserved
     background-color: lightgrey
 
   &.seat--selected
@@ -125,3 +128,25 @@
     display: flex
     flex-direction: column
     align-items: center
+
+@media (max-width: 700px)
+  .seat
+    margin: 1%
+    flex: 0 0 8%
+    text-align: center
+    border: 1px solid lightgrey
+    border-radius: 0.3em
+
+    &.seat--free
+      &:hover
+        cursor: pointer
+        border-color: grey
+
+    &.seat--sold
+      background-color: grey
+
+    &.seat--reserved
+      background-color: lightgrey
+
+    &.seat--selected
+      background-color: lightgreen

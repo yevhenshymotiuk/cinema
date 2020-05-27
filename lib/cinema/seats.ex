@@ -98,6 +98,12 @@ defmodule Cinema.Seats do
     |> broadcast(:seat_updated)
   end
 
+  def update_seat!(%Seat{} = seat, attrs) do
+    {:ok, seat} = update_seat(seat, attrs)
+
+    seat
+  end
+
   @doc """
   Deletes a seat.
 
@@ -128,8 +134,13 @@ defmodule Cinema.Seats do
   end
 
   def create_ticket!(%Seat{} = seat, %Purchase{} = purchase, attrs \\ %{}) do
-    ticket = Ecto.build_assoc(seat, :ticket, attrs)
-    ticket = Ecto.build_assoc(purchase, :tickets, ticket)
+    ticket = Ecto.build_assoc(
+      purchase,
+      :tickets,
+      seat
+      |> update_seat!(%{reservation_ip: nil})
+      |> Ecto.build_assoc(:ticket, attrs)
+    )
 
     Repo.insert(ticket)
 
