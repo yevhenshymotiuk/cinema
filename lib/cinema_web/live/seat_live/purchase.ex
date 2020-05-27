@@ -12,7 +12,7 @@ defmodule CinemaWeb.SeatLive.Purchase do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     purchase = Purchase |> Repo.get!(id) |> Repo.preload([:tickets])
-    tickets = Enum.map(purchase.tickets, & Repo.preload(&1, [seat: :hall]))
+    tickets = Enum.map(purchase.tickets, &Repo.preload(&1, seat: :hall))
 
     {
       :noreply,
