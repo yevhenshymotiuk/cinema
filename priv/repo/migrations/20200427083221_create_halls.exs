@@ -8,6 +8,5 @@ defmodule Cinema.Repo.Migrations.CreateHalls do
 
       timestamps()
     end
-
   end
 end

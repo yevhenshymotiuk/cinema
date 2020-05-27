@@ -20,10 +20,10 @@ defmodule Cinema.Seats do
   def list_seats(hall_id) do
     Repo.all(
       from s in Seat,
-      where: s.hall_id == ^hall_id,
-      order_by: [asc: s.number],
-      preload: [:ticket],
-      select: s
+        where: s.hall_id == ^hall_id,
+        order_by: [asc: s.number],
+        preload: [:ticket],
+        select: s
     )
   end
 
@@ -134,13 +134,14 @@ defmodule Cinema.Seats do
   end
 
   def create_ticket!(%Seat{} = seat, %Purchase{} = purchase, attrs \\ %{}) do
-    ticket = Ecto.build_assoc(
-      purchase,
-      :tickets,
-      seat
-      |> update_seat!(%{reservation_ip: nil})
-      |> Ecto.build_assoc(:ticket, attrs)
-    )
+    ticket =
+      Ecto.build_assoc(
+        purchase,
+        :tickets,
+        seat
+        |> update_seat!(%{reservation_ip: nil})
+        |> Ecto.build_assoc(:ticket, attrs)
+      )
 
     Repo.insert(ticket)
 
@@ -154,6 +155,7 @@ defmodule Cinema.Seats do
   end
 
   defp broadcast({:error, _reason} = error, _event), do: error
+
   defp broadcast({:ok, seat}, event) do
     Phoenix.PubSub.broadcast(Cinema.PubSub, "seats", {event, seat})
     {:ok, seat}

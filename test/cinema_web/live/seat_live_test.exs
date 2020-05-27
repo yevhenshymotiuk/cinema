@@ -32,7 +32,7 @@ defmodule CinemaWeb.SeatLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.seat_index_path(conn, :index))
 
       assert index_live |> element("a", "New Seat") |> render_click() =~
-        "New Seat"
+               "New Seat"
 
       assert_patch(index_live, Routes.seat_index_path(conn, :new))
 
@@ -53,7 +53,7 @@ defmodule CinemaWeb.SeatLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.seat_index_path(conn, :index))
 
       assert index_live |> element("#seat-#{seat.id} a", "Edit") |> render_click() =~
-        "Edit Seat"
+               "Edit Seat"
 
       assert_patch(index_live, Routes.seat_index_path(conn, :edit, seat))
 
@@ -91,7 +91,7 @@ defmodule CinemaWeb.SeatLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.seat_show_path(conn, :show, seat))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
-        "Edit Seat"
+               "Edit Seat"
 
       assert_patch(show_live, Routes.seat_show_path(conn, :edit, seat))
 

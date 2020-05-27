@@ -32,7 +32,7 @@ defmodule CinemaWeb.TicketLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ticket_index_path(conn, :index))
 
       assert index_live |> element("a", "New Ticket") |> render_click() =~
-        "New Ticket"
+               "New Ticket"
 
       assert_patch(index_live, Routes.ticket_index_path(conn, :new))
 
@@ -53,7 +53,7 @@ defmodule CinemaWeb.TicketLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.ticket_index_path(conn, :index))
 
       assert index_live |> element("#ticket-#{ticket.id} a", "Edit") |> render_click() =~
-        "Edit Ticket"
+               "Edit Ticket"
 
       assert_patch(index_live, Routes.ticket_index_path(conn, :edit, ticket))
 
@@ -91,7 +91,7 @@ defmodule CinemaWeb.TicketLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.ticket_show_path(conn, :show, ticket))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
-        "Edit Ticket"
+               "Edit Ticket"
 
       assert_patch(show_live, Routes.ticket_show_path(conn, :edit, ticket))
 

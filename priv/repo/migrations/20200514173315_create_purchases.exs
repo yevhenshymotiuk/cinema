@@ -7,6 +7,5 @@ defmodule Cinema.Repo.Migrations.CreatePurchases do
 
       timestamps()
     end
-
   end
 end

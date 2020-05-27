@@ -13,7 +13,7 @@ defmodule CinemaWeb.TicketLive.Show do
     ticket =
       id
       |> Tickets.get_ticket!()
-      |> Repo.preload([seat: :hall])
+      |> Repo.preload(seat: :hall)
 
     {:noreply,
      socket

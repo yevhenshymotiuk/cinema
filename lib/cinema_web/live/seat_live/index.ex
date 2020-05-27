@@ -32,7 +32,7 @@ defmodule CinemaWeb.SeatLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(page_title: "New Seat")
-    |>  assign(seat: %Seat{})
+    |> assign(seat: %Seat{})
   end
 
   defp apply_action(socket, :index, _params) do
@@ -74,12 +74,13 @@ defmodule CinemaWeb.SeatLive.Index do
       :noreply,
       push_redirect(
         socket,
-        to: Routes.seat_selected_path(
-          socket,
-          :selected,
-          hall_id,
-          CinemaWeb.SeatLive.Selected.encode(selected_seats)
-        )
+        to:
+          Routes.seat_selected_path(
+            socket,
+            :selected,
+            hall_id,
+            CinemaWeb.SeatLive.Selected.encode(selected_seats)
+          )
       )
     }
   end
@@ -95,7 +96,7 @@ defmodule CinemaWeb.SeatLive.Index do
       update(
         socket,
         :seats,
-        & Enum.map(&1, fn s -> if s.id == seat.id, do: seat, else: s end)
+        &Enum.map(&1, fn s -> if s.id == seat.id, do: seat, else: s end)
       )
     }
   end
@@ -108,7 +109,8 @@ defmodule CinemaWeb.SeatLive.Index do
     info = get_connect_info(socket)
 
     case info do
-      nil -> nil
+      nil ->
+        nil
 
       _ ->
         info[:peer_data][:address]

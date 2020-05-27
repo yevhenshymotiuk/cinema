@@ -32,7 +32,7 @@ defmodule CinemaWeb.HallLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.hall_index_path(conn, :index))
 
       assert index_live |> element("a", "New Hall") |> render_click() =~
-        "New Hall"
+               "New Hall"
 
       assert_patch(index_live, Routes.hall_index_path(conn, :new))
 
@@ -53,7 +53,7 @@ defmodule CinemaWeb.HallLiveTest do
       {:ok, index_live, _html} = live(conn, Routes.hall_index_path(conn, :index))
 
       assert index_live |> element("#hall-#{hall.id} a", "Edit") |> render_click() =~
-        "Edit Hall"
+               "Edit Hall"
 
       assert_patch(index_live, Routes.hall_index_path(conn, :edit, hall))
 
@@ -91,7 +91,7 @@ defmodule CinemaWeb.HallLiveTest do
       {:ok, show_live, _html} = live(conn, Routes.hall_show_path(conn, :show, hall))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
-        "Edit Hall"
+               "Edit Hall"
 
       assert_patch(show_live, Routes.hall_show_path(conn, :edit, hall))
 
