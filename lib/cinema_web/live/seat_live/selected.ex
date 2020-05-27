@@ -81,17 +81,15 @@ defmodule CinemaWeb.SeatLive.Selected do
 
     {
       :noreply,
-      assign(
-        socket,
-        page_title: page_title(socket.assigns.live_action),
-        hall: hall,
-        selected_seats_data: selected_seats_data,
-        ip: ip,
-        reserved: reserved,
-        reserved_user: reserved_user,
-        free: free,
-        sold: sold,
-      )
+      socket
+      |> assign(page_title: page_title(socket.assigns.live_action))
+      |> assign(hall: hall)
+      |> assign(selected_seats_data: selected_seats_data)
+      |> assign(ip: ip)
+      |> assign(reserved: reserved)
+      |> assign(reserved_user: reserved_user)
+      |> assign(free: free)
+      |> assign(sold: sold)
     }
   end
 

@@ -10,13 +10,11 @@ defmodule CinemaWeb.SeatLive.Index do
 
     {
       :ok,
-      assign(
-        socket,
-        seats: fetch_seats(hall_id),
-        hall: Halls.get_hall!(hall_id),
-        selected_seats: [],
-        ip: get_ip(socket)
-      )
+      socket
+      |> assign(seats: fetch_seats(hall_id))
+      |> assign(hall: Halls.get_hall!(hall_id))
+      |> assign(selected_seats: [])
+      |> assign(ip: get_ip(socket))
     }
   end
 
@@ -27,14 +25,14 @@ defmodule CinemaWeb.SeatLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Seat")
-    |> assign(:seat, Seats.get_seat!(id))
+    |> assign(page_title: "Edit Seat")
+    |> assign(seat: Seats.get_seat!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Seat")
-    |> assign(:seat, %Seat{})
+    |> assign(page_title: "New Seat")
+    |>  assign(seat: %Seat{})
   end
 
   defp apply_action(socket, :index, _params) do
