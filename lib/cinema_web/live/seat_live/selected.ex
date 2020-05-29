@@ -64,13 +64,12 @@ defmodule CinemaWeb.SeatLive.Selected do
           Timer.start(
             seconds: 10,
             callback: fn ->
-              seats =
-                Enum.map(
-                  selected_seats_data,
-                  &Seats.update_seat!(&1.seat, %{reservation_ip: nil})
-                )
+              Enum.each(
+                selected_seats_data,
+                &Seats.update_seat!(&1.seat, %{reservation_ip: nil})
+              )
 
-              Process.send(self, {:cancel_reservation, seats}, [])
+              Process.send(self, :cancel_reservation, [])
             end
           )
 
@@ -158,7 +157,7 @@ defmodule CinemaWeb.SeatLive.Selected do
   end
 
   @impl true
-  def handle_info({:cancel_reservation, seats}, socket) do
+  def handle_info(:cancel_reservation, socket) do
     hall_id = socket.assigns.hall.id
 
     {
