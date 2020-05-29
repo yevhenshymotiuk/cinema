@@ -62,7 +62,7 @@ defmodule CinemaWeb.SeatLive.Selected do
 
         {:ok, timer} =
           Timer.start(
-            seconds: 10,
+            seconds: 600,
             callback: fn ->
               Enum.each(
                 selected_seats_data,
