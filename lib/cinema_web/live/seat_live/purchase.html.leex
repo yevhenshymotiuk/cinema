@@ -29,12 +29,10 @@
           </div>
         </div>
         <div class="tickets__actions">
-          <div class="tickets__action tickets__action--left">
-            <%= live_redirect "View", to: Routes.ticket_show_path(@socket, :show, ticket.id) %>
-          </div>
-          <div class="tickets__action tickets__action--right">
-            <a href="#">Download</a>
-          </div>
+          <%= live_redirect to: Routes.ticket_show_path(@socket, :show, ticket.id),
+            class: "tickets__action" do %>
+              View
+          <% end %>
         </div>
       </div>
     <% end %>
