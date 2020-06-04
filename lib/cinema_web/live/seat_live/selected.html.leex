@@ -2,38 +2,43 @@
   <h1>Selected seats:</h1>
   <br />
 
-  <form onsumbit="(e) => e.preventDefault();" phx-change="email-form-changed">
+  <form
+    onsumbit="(e) => e.preventDefault();"
+    phx-change="email-form-changed"
+    phx-submit="buy-tickets">
     <label for="email">Email:</label>
     <input
       id="email"
       type="email"
       name="email"
-      value="<%= @email %>" />
-  </form>
-  <br /><br />
+      value="<%= @email %>"
+      required />
+    <br />
+    <br />
 
-  <blockquote>
-    <%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
-      <div class="selected-seat">
-        <h3>Row: <%= seat_data.row %></h3>
-        <h3>Number: <%= seat_data.seat.number %></h3>
-      </div>
-      <%= if i != length(@selected_seats_data) - 1 do %>
-          <hr />
+    <blockquote>
+      <%= for {seat_data, i} <- Enum.with_index(@selected_seats_data) do %>
+        <div class="selected-seat">
+          <h3>Row: <%= seat_data.row %></h3>
+          <h3>Number: <%= seat_data.seat.number %></h3>
+        </div>
+        <%= if i != length(@selected_seats_data) - 1 do %>
+            <hr />
+        <% end %>
       <% end %>
-    <% end %>
-  </blockquote>
-  <br />
-  <br />
+    </blockquote>
+    <br />
+    <br />
 
-  <div>
-    <%= live_redirect "Back", to: Routes.seat_index_path(@socket, :index, @hall.id) %>
-    <button
-      phx-click="buy-tickets"
-      phx-disable-with="Loading...">
-      Buy
-    </button>
-  </div>
+    <div>
+      <%= live_redirect "Back", to: Routes.seat_index_path(@socket, :index, @hall.id) %>
+      <button
+        type="submit"
+        phx-disable-with="Loading...">
+        Buy
+      </button>
+    </div>
+  </form>
 <% else %>
   <div class="text-center">
       You have selected a seat ticket for which is already
